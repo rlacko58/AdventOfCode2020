@@ -15,6 +15,14 @@ func task1() {
 	fmt.Println("Multiplied:", foundValues[0] * foundValues[1])
 }
 
+func task2() {
+	values := utils.GetIntegers()
+	foundValues := utils.FindSum(values, 2020, 3)
+	fmt.Println("values:", foundValues)
+	fmt.Println("Multiplied:", utils.MultiplyIntArray(foundValues))
+}
+
 func main() {
-	task1()
+	//task1()
+	task2()
 }
