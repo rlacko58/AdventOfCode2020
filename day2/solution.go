@@ -19,6 +19,18 @@ func task1() {
 	fmt.Println("Valid passwords:", validPasswordNum)
 }
 
+func task2() {
+	values := utils.GetInput()
+	validPasswordNum := 0
+	for _, value := range values {
+		if utils.LetterOnlyOnce(value) {
+			validPasswordNum++
+		}
+	}
+	fmt.Println("Valid passwords:", validPasswordNum)
+}
+
 func main() {
-	task1()
+	// task1()
+	task2()
 }
