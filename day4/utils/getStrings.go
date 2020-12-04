@@ -15,7 +15,7 @@ func GetStrings() []string {
 		scanner.Scan()
 		scannedText := scanner.Text()
 		if len(scannedText) == 0 && len(text) != 0 {
-			values = append(values, text)
+			values = append(values, text[:len(text)-1])
 			text = ""
 			continue
 		} else {

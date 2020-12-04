@@ -22,6 +22,19 @@ func task1() {
 	fmt.Println("Valid passwords:", validPasswords)
 }
 
+func task2() {
+	passports := utils.GetStrings()
+	validPasswords := 0
+	for _, pass := range passports {
+		_, isvalid := utils.CreatePassport(pass)
+		if(isvalid) {
+			validPasswords ++
+		}
+	}
+	fmt.Println("Valid passwords:", validPasswords)
+}
+
 func main() {
-	task1()
+	// task1()
+	task2()
 }
