@@ -11,6 +11,13 @@ func task1() {
 	fmt.Println("Acc value:", utils.CalcAcc(&opArr))
 }
 
+func task2() {
+	strArr := utils.GetInput()
+	opArr := utils.ConvertStringArr(&strArr)
+	fmt.Println("Acc value:", utils.FixInfiniteLoop(&opArr))
+}
+
 func main() {
-	task1()
+	// task1()
+	task2()
 }
