@@ -13,6 +13,10 @@ type Location struct {
 	Facing, X, Y int
 }
 
+type Waypoint struct {
+	X, Y int
+}
+
 type Instruction struct {
 	action string
 	value int
@@ -24,6 +28,19 @@ func (loc *Location) rotate(dir string, degrees int) {
 		degrees = 4*90 - degrees 
 	}
 	loc.Facing = (loc.Facing + degrees / 90) % 4
+}
+
+func (loc *Waypoint) rotate(dir string, degrees int) {
+	// degrees % 90 == 0
+	if dir == "R" { 
+		degrees = 4*90 - degrees 
+	}
+	rotateLeftNum := (degrees / 90) % 4
+	for i := 0; i < rotateLeftNum; i++ {
+		tmp := loc.X
+		loc.X = - loc.Y
+		loc.Y = tmp
+	}
 }
 
 func convertDirIntToStr(dir int) string {
@@ -58,6 +75,23 @@ func (loc *Location) move (dir string, value int) {
 	}
 }
 
+func (loc *Waypoint) move (dir string, value int) {
+	switch(dir) {
+	case "N":
+		loc.Y += value
+	case "S":
+		loc.Y -= value
+	case "E":
+		loc.X += value
+	case "W":
+		loc.X -= value
+	case "L":
+		loc.rotate("L", value)
+	case "R":
+		loc.rotate("R", value)
+	}
+}
+
 func convertToInstruction(instr *string) Instruction {
 	re := regexp.MustCompile(`^(\w{1})(\d+)`)
 	match := re.FindStringSubmatch(*instr)
@@ -72,19 +106,40 @@ func abs(val int) int {
 	return int(math.Abs(float64(val)))
 }
 
-func task1(instr *[]string) {
+func convertToInstr(instr *[]string) []Instruction {
 	instrArr := make([]Instruction, 0)
-	loc := Location{}
 	for _, v := range(*instr) {
 		instrArr = append(instrArr, convertToInstruction(&v))
 	}
+	return instrArr
+}
+
+func task1(instr *[]string) {
+	instrArr := convertToInstr(instr)
+	loc := Location{}
 	for _, v := range(instrArr) {
 		loc.move(v.action, v.value)
 	}
-	fmt.Println(abs(loc.X) + abs(loc.Y))
+	fmt.Println("Task1 Location:", abs(loc.X) + abs(loc.Y))
+}
+
+func task2(instr *[]string) {
+	instrArr := convertToInstr(instr)
+	shipLoc := Location{}
+	wpLoc := Waypoint{X: 10, Y: 1}
+	for _, v := range(instrArr) {
+		if (v.action == "F") {
+			shipLoc.X += v.value * wpLoc.X
+			shipLoc.Y += v.value * wpLoc.Y
+		} else {
+			wpLoc.move(v.action, v.value)
+		}
+	}
+	fmt.Println("Task2 Location:", abs(shipLoc.X) + abs(shipLoc.Y))
 }
 
 func main() {
 	instr := utils.GetInput()
 	task1(&instr)
+	task2(&instr)
 }
