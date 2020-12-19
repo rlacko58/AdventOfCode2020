@@ -2,10 +2,12 @@ package input
 
 import (
 	"bufio"
+	"io/ioutil"
 	"os"
+	"strings"
 )
 
-func GetStrings() []string {
+func ReadStdinLines() []string {
 	values := make([]string, 0)
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -18,6 +20,25 @@ func GetStrings() []string {
 		} else {
 			break
 		}
+	}
+
+	return values
+}
+
+func ReadFileLines(path string) []string {
+	values := make([]string, 0)
+
+	byt, err := ioutil.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+
+	strArr := strings.Split(string(byt), "\n")
+	for _, val := range strArr {
+		if (val == "") {
+			continue
+		}
+		values = append(values, val)
 	}
 
 	return values

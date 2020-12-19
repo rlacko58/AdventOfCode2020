@@ -11,7 +11,7 @@ import (
 // https://adventofcode.com/2020/day/1
 
 func main() {
-	strArr := input.GetStrings()
+	strArr := input.ReadStdinLines()
 	values := convert.StrArrToInt(&strArr)
 	task1Nums := day01.FindSum(values, 2020, 2)
 	task2Nums := day01.FindSum(values, 2020, 3)
