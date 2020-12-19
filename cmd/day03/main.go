@@ -5,13 +5,14 @@ import (
 	"aoc-2020/pkg/array"
 	"aoc-2020/pkg/input"
 	"fmt"
+	"os"
 )
 
 // --- Day 3: Toboggan Trajectory ---
 // https://adventofcode.com/2020/day/3
 
 func main() {
-	rows := input.ReadStdinLines()
+	rows := input.ReadLines(os.Stdin)
 	fmt.Println("Task1")
 	fmt.Println("Number of encountered trees:",
 		day03.CountEncounteredTrees(&rows, 3, 1))

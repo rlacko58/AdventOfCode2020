@@ -4,6 +4,7 @@ import (
 	"aoc-2020/internal/day03"
 	"aoc-2020/pkg/array"
 	"aoc-2020/pkg/input"
+	"os"
 	"testing"
 )
 
@@ -12,7 +13,13 @@ func TestDay03(t *testing.T) {
 	var t1i2Sol = 250
 	var t2i2Sol = 1592662500
 
-	rows := input.ReadFileLines("data/day03_2.txt")
+	file, err := os.Open("data/day03_2.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	rows := input.ReadLines(file)
+
 	ans := day03.CountEncounteredTrees(&rows, 3, 1)
 	if ans != t1i2Sol {
 		t.Errorf("CountEncounteredTrees(day03_2.txt, 3, 1) = %d, want %d", ans, t1i2Sol)

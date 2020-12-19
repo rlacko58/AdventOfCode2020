@@ -5,13 +5,14 @@ import (
 	"aoc-2020/pkg/convert"
 	"aoc-2020/pkg/input"
 	"fmt"
+	"os"
 )
 
 // --- Day 1: Report Repair ---
 // https://adventofcode.com/2020/day/1
 
 func main() {
-	strArr := input.ReadStdinLines()
+	strArr := input.ReadLines(os.Stdin)
 	values := convert.StrArrToInt(&strArr)
 	task1Nums := day01.FindSum(values, 2020, 2)
 	task2Nums := day01.FindSum(values, 2020, 3)

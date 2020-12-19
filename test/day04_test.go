@@ -15,7 +15,9 @@ func TestDay04(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 	rows := day04.GetPassports(file)
+	
 	ans := day04.CountValidPass(day04.ContainsWords, &rows)
 	if ans != t1i2Sol {
 		t.Errorf("ContainsWords() = %d, want %d", ans, t1i2Sol)

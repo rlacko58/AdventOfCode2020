@@ -2,15 +2,13 @@ package input
 
 import (
 	"bufio"
-	"io/ioutil"
-	"os"
-	"strings"
+	"io"
 )
 
-func ReadStdinLines() []string {
+func ReadLines(r io.Reader) []string {
 	values := make([]string, 0)
 
-	scanner := bufio.NewScanner(os.Stdin)
+	scanner := bufio.NewScanner(r)
 
 	for {
 		scanner.Scan()
@@ -20,25 +18,6 @@ func ReadStdinLines() []string {
 		} else {
 			break
 		}
-	}
-
-	return values
-}
-
-func ReadFileLines(path string) []string {
-	values := make([]string, 0)
-
-	byt, err := ioutil.ReadFile(path)
-	if err != nil {
-		panic(err)
-	}
-
-	strArr := strings.Split(string(byt), "\n")
-	for _, val := range strArr {
-		if (val == "") {
-			continue
-		}
-		values = append(values, val)
 	}
 
 	return values
